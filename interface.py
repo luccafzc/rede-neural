@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 import joblib
-from modelo_v2 import predict_bundle
+from modelo_v2 import analyze_bundle
 
 ROOT = Path(__file__).resolve().parent
 ASSETS = {
@@ -86,7 +86,7 @@ def make_server(port=8765, model_path=None):
                 if not isinstance(data, dict) or not isinstance(data.get('text'), str):
                     raise ValueError('Informe um texto para analisar.')
                 with model_lock:
-                    result = predict_bundle(bundle, data['text'])
+                    result = analyze_bundle(bundle, data['text'])
                 self.respond(200, result)
             except (ValueError, UnicodeDecodeError):
                 self.respond(400, {'error': 'Informe um texto não vazio, com até 100.000 caracteres.'})

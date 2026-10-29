@@ -49,7 +49,27 @@ class InterfaceTests(unittest.TestCase):
         text='A organização da rotina pode contribuir para uma distribuição mais equilibrada das atividades profissionais e pessoais. O planejamento de tarefas, deslocamentos e períodos de descanso ajuda a identificar prioridades e reduzir conflitos de horário. Para isso, uma estratégia consiste em preparar os materiais necessários no dia anterior e estabelecer objetivos compatíveis com o tempo disponível. Também é necessário reservar espaço para imprevistos, evitando uma programação excessivamente rígida.'
         status,payload,_=self.analyze(text)
         self.assertEqual(status,200)
-        self.assertEqual(json.loads(payload),predict_text(ROOT/'resultados_v2/modelo_selecionado.joblib',text))
+        result=json.loads(payload)
+        strict=predict_text(ROOT/'resultados_v2/modelo_selecionado.joblib',text)
+        self.assertEqual({key:result[key] for key in strict},strict)
+        self.assertIsNotNone(result['estimate'])
+
+    def test_vercel_and_local_return_same_analysis(self):
+        from app import app
+        text=' '.join(f'biblioteca{i}' for i in range(600))
+        local_status,local,_=self.analyze(text)
+        with app.test_client() as client:
+            remote=client.post('/api/analyze',json={'text':text})
+        self.assertEqual(local_status,200)
+        self.assertEqual(remote.status_code,200)
+        self.assertEqual(remote.get_json(),json.loads(local))
+        self.assertEqual(remote.get_json()['estimate']['n_words_analyzed'],600)
+
+    def test_vercel_rejects_text_empty_after_cleaning(self):
+        from app import app
+        with app.test_client() as client:
+            result=client.post('/api/analyze',json={'text':'<b></b>'})
+        self.assertEqual(result.status_code,400)
 
     def test_short_text_preserves_abstention(self):
         status,payload,_=self.analyze('Hoje fui ao mercado.')

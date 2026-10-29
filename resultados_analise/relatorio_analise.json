@@ -1,0 +1,64 @@
+{
+  "status": "Diagnóstico histórico L2; não é avaliação independente de português nativo.",
+  "model_retrained": false,
+  "runtime_versions": {
+    "scikit-learn": "1.8.0",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "joblib": "1.5.3"
+  },
+  "decision_rule": "Decisão seletiva quando disponível; caso contrário, tendência pelo score em 0,5. Janelas ponderadas por palavras.",
+  "strict": {
+    "n_total": 701,
+    "n_decided": 486,
+    "n_inconclusive": 215,
+    "decision_coverage": 0.6932952924393724,
+    "human_decision_coverage": 0.900497512437811,
+    "ai_decision_coverage": 0.61,
+    "false_ai_among_all_humans": 0.0,
+    "false_human_among_all_ai": 0.01,
+    "conditional_metrics_decided_only": {
+      "n": 486,
+      "accuracy": 0.9897119341563786,
+      "balanced_accuracy": 0.9918032786885246,
+      "precision_ai": 1.0,
+      "recall_ai": 0.9836065573770492,
+      "f1_ai": 0.9917355371900827,
+      "f1_macro": 0.9890557794942239,
+      "false_positive_rate": 0.0,
+      "tn": 181,
+      "fp": 0,
+      "fn": 5,
+      "tp": 300
+    }
+  },
+  "strict_plus_estimates": {
+    "n_total": 701,
+    "n_decided": 694,
+    "n_inconclusive": 7,
+    "decision_coverage": 0.9900142653352354,
+    "human_decision_coverage": 0.9651741293532339,
+    "ai_decision_coverage": 1.0,
+    "false_ai_among_all_humans": 0.004975124378109453,
+    "false_human_among_all_ai": 0.046,
+    "conditional_metrics_decided_only": {
+      "n": 694,
+      "accuracy": 0.9654178674351584,
+      "balanced_accuracy": 0.9744226804123711,
+      "precision_ai": 0.997907949790795,
+      "recall_ai": 0.954,
+      "f1_ai": 0.9754601226993865,
+      "f1_macro": 0.9584617686667665,
+      "false_positive_rate": 0.005154639175257732,
+      "tn": 193,
+      "fp": 1,
+      "fn": 23,
+      "tp": 477
+    }
+  },
+  "additional_estimates": 208,
+  "errors_in_additional_estimates": 19,
+  "without_estimate": {
+    "Use um trecho com pelo menos 50 palavras para analisar os padrões de escrita.": 7
+  }
+}

@@ -20,9 +20,9 @@ function updateCount() {
   if (!config) return;
   const min=config.policy.min_words, max=config.policy.max_words;
   if (!count) hint.textContent='A contagem acompanha o texto enquanto você escreve.';
-  else if (count<min) { hint.textContent=`Texto curto: abaixo de ${min} palavras, o resultado será inconclusivo.`; hint.classList.add('outside'); }
-  else if (count>max) { hint.textContent=`Acima das ${max} palavras estudadas. O modelo retornará inconclusivo.`; hint.classList.add('outside'); }
-  else hint.textContent='Comprimento dentro do intervalo estudado. Isso não garante uma decisão.';
+  else if (count<min) { hint.textContent=`Acrescente contexto: use pelo menos ${min} palavras para analisar.`; hint.classList.add('outside'); }
+  else if (count>max) { hint.textContent=`O texto será analisado em trechos de até ${max} palavras, com uma tendência geral.`; }
+  else hint.textContent='Comprimento adequado para analisar os padrões de escrita.';
 }
 function onEdit() { clearResult(); error(); $('file-name').textContent=''; updateCount(); }
 input.addEventListener('input',onEdit);
@@ -44,17 +44,26 @@ $('file-input').addEventListener('change',async(event)=>{
 });
 function showResult(result){
   const known=result.label===0||result.label===1;
-  $('outcome').className='outcome '+(result.label===0?'human':result.label===1?'ai':'uncertain');
-  $('result-kicker').textContent=known?'CLASSIFICAÇÃO DO MODELO':'SEM CONCLUSÃO SUFICIENTE';
-  $('prediction').textContent=result.label===0?'Classificado como humano':result.label===1?'Classificado como IA':'Inconclusivo';
+  const estimate=result.estimate;
+  $('outcome').className='outcome '+(known?(result.label===0?'human':'ai'):'uncertain');
+  $('result-kicker').textContent=known?'CLASSIFICAÇÃO DO MODELO':estimate?'ESTIMATIVA EXPLORATÓRIA':'ENTRADA SEM SUPORTE PARA ANÁLISE';
+  $('prediction').textContent=known?(result.label===0?'Classificado como humano':'Classificado como IA'):
+    estimate?(estimate.label===0?'Tendência humana':estimate.label===1?'Tendência de IA':'Padrões equilibrados'):'Texto insuficiente para análise';
   $('explanation').textContent=known?
     (result.label===0?'O texto foi compatível com a classe humana na referência utilizada pelo modelo.':'O texto foi compatível com a classe de IA na referência utilizada pelo modelo.'):
-    'O modelo não tem suporte suficiente para atribuir uma única classificação a este texto.';
+    estimate?(estimate.label===null?'As pontuações das duas classes estão empatadas.':
+      'A pontuação favorece essa classe, mas a estimativa tem suporte limitado e pode estar errada.'):
+      'Não foi atribuída uma tendência. Revise o texto conforme a orientação abaixo.';
   $('reasons').replaceChildren();
-  for(const reason of result.reasons||[]){const li=document.createElement('li');li.textContent=reason;$('reasons').append(li);}
-  $('reasons').hidden=!(result.reasons||[]).length;
+  const notices=result.analysis_warnings||result.reasons||[];
+  for(const reason of notices){const li=document.createElement('li');li.textContent=reason;$('reasons').append(li);}
+  $('reasons').hidden=!notices.length;
   $('analyzed-count').textContent=`${result.n_words} palavras`;
-  $('score').textContent=result.score_ai===null?'Não calculada':Number(result.score_ai).toLocaleString('pt-BR',{minimumFractionDigits:4,maximumFractionDigits:4});
+  const score=estimate?estimate.score_ai:result.score_ai;
+  $('score').textContent=score==null?'Não calculada':Number(score).toLocaleString('pt-BR',{minimumFractionDigits:4,maximumFractionDigits:4});
+  document.querySelector('.technical-content > p').textContent=estimate&&estimate.n_windows>1?
+    `Média ponderada de ${estimate.n_windows} trechos. Não é uma probabilidade calibrada de autoria. As pontuações de cada trecho estão no retorno completo.`:
+    'A pontuação foi calibrada na base de aprendizes de português. Ela não representa certeza sobre a autoria deste texto.';
   $('coverage').textContent=Number(result.vocabulary_coverage).toLocaleString('pt-BR',{style:'percent',maximumFractionDigits:1});
   $('compatible').textContent=result.compatible_labels?(result.compatible_labels.join(' e ')||'Nenhuma'):'Não avaliadas';
   $('raw-result').textContent=JSON.stringify(result,null,2);
@@ -86,7 +95,7 @@ input.addEventListener('keydown',event=>{if((event.ctrlKey||event.metaKey)&&even
 async function initialize(){
   try{
     const response=await fetch('/api/config');if(!response.ok)throw new Error();config=await response.json();
-    $('range-hint').textContent=`Cole de ${config.policy.min_words} a ${config.policy.max_words} palavras. Textos fora do intervalo ficam inconclusivos.`;
+    $('range-hint').textContent=`Cole um texto em português com pelo menos ${config.policy.min_words} palavras. Textos longos são analisados em trechos.`;
     const names={hibrido_svm:'SVM híbrida',hibrido_logistica:'Regressão híbrida',palavras_svm:'SVM de palavras',palavras_logistica:'Regressão de palavras',caracteres_logistica:'Regressão de caracteres',palavras_random_forest:'Random Forest'};
     $('model-name').textContent=names[config.model]||config.model;
     updateCount();

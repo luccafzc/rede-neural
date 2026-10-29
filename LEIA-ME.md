@@ -1,5 +1,7 @@
 # Detector acadêmico de texto — versão 2
 
+Para o diagnóstico dos resultados inconclusivos, o roteiro de treinamento com textos do domínio desejado e a avaliação da base disponibilizada pelos autores do artigo, consulte [PLANO_TREINAMENTO.md](PLANO_TREINAMENTO.md).
+
 O código foi revisado para analisar parágrafos e redações, com saída **Humano**, **IA** ou **Inconclusivo**. A versão atual combina palavras e trechos de palavras com SVM, calibração sigmoide e referência de compatibilidade por classe. O modelo já está treinado em `resultados_v2/modelo_selecionado.joblib`.
 
 ## Interface para apresentação
@@ -12,7 +14,7 @@ Na pasta do projeto, dê dois cliques em **Iniciar_Interface.bat**. A interface 
 
 O endereço padrão é `http://127.0.0.1:8765`. Mantenha o terminal aberto durante a apresentação; pressione **Ctrl+C** para encerrar. Se a porta estiver ocupada, execute com `--port 8766`. A interface usa as dependências já instaladas do projeto, sem novas bibliotecas e sem retreinar.
 
-Cole um parágrafo ou importe um arquivo `.txt` em UTF-8 e clique em **Analisar texto**. A tela mostra a classificação, a contagem de palavras e os motivos quando o resultado é inconclusivo. **Explorar detalhes técnicos** abre o score, a cobertura de vocabulário e a resposta JSON. O score não representa certeza de autoria.
+Cole um parágrafo ou importe um arquivo `.txt` em UTF-8 e clique em **Analisar texto**. A tela mostra a classificação sustentada pela referência ou, quando há sinal utilizável mas a regra seletiva se abstém, **Tendência humana / Tendência de IA**, identificada como estimativa exploratória. Vocabulário diferente passa a ser uma ressalva da estimativa. Textos longos são divididos em trechos e recebem uma média ponderada das pontuações; essa média não é probabilidade de autoria. Textos com menos de 50 palavras, repetição excessiva ou trechos sem padrões reconhecidos recebem orientação para ajustar a entrada. **Explorar detalhes técnicos** abre o score, a cobertura de vocabulário e a resposta JSON. O score não representa certeza de autoria. Veja os resultados e limites em [ANALISE_RESULTADOS.md](ANALISE_RESULTADOS.md).
 
 O processamento é local, sem envio a serviços externos, e o aplicativo não salva os textos. A interface destina-se à demonstração neste computador, sem hospedagem pública. Para uma instalação nova, siga os dois primeiros comandos da seção abaixo antes de abrir o atalho.
 
@@ -45,6 +47,8 @@ O código encontra o modelo padrão a partir da localização do próprio script
 - `n_words` e `vocabulary_coverage`: características do texto informado.
 
 O modelo fornecido opera entre **50 e 535 palavras**. Também pode se abster por baixa cobertura de vocabulário, repetição excessiva ou ambiguidade. Esses critérios não garantem que um texto aceito esteja no domínio: a base continua sendo português de aprendizes. Não aumente artificialmente o texto por repetição para ultrapassar o limite.
+
+Esse é o comportamento seletivo preservado no comando `predict` e nas métricas históricas. As interfaces local e Vercel usam `analyze_bundle`: a resposta mantém esses campos e acrescenta `estimate` e `analysis_warnings`. Uma tendência não transforma `label: null` em uma decisão validada. A interface apresenta a tendência separadamente e não aprende com as consultas.
 
 As duas frases testadas na conversa agora recebem Inconclusivo. Isso evita decidir sobre frases sem suporte na base; **não significa que o modelo descobriu a autoria delas**.
 

@@ -153,6 +153,75 @@ def predict_bundle(bundle, text):
     return decide(bundle, text)
 
 
+def analysis_windows(text, max_words):
+    """Janelas contíguas equilibradas: cada palavra entra exatamente uma vez."""
+    words = text.split()
+    n_windows = max(1, math.ceil(len(words) / max_words))
+    size, remainder = divmod(len(words), n_windows)
+    start = 0
+    windows = []
+    for i in range(n_windows):
+        end = start + size + (i < remainder)
+        windows.append(" ".join(words[start:end]))
+        start = end
+    return windows
+
+
+def analyze_bundle(bundle, text):
+    """Acrescenta uma tendência exploratória sem substituir a decisão seletiva.
+
+    A média por janelas é um score descritivo, não uma probabilidade calibrada
+    de autoria do documento. O modelo não é ajustado durante esta operação.
+    """
+    result = predict_bundle(bundle, text)
+    result.update(estimate=None, analysis_version=1, analysis_warnings=[])
+    cleaned = clean_text(text)
+    tokens = word_tokens(cleaned)
+    if result['n_words'] < bundle['policy']['min_words']:
+        result['analysis_warnings'] = [
+            f"Use um trecho com pelo menos {bundle['policy']['min_words']} palavras para analisar os padrões de escrita."]
+        return result
+    if not tokens or len(set(tokens)) / len(tokens) < .15:
+        result['analysis_warnings'] = ["Use um texto com frases completas e sem repetição artificial."]
+        return result
+
+    windows = analysis_windows(cleaned, bundle['policy']['max_words'])
+    features = bundle['base_model'].named_steps['features'].transform(windows)
+    if np.any(np.asarray(features.getnnz(axis=1)).ravel() == 0):
+        result['analysis_warnings'] = ["Não há padrões reconhecidos em parte do texto. Use um trecho em português com frases completas."]
+        return result
+
+    if len(windows) == 1 and result['score_ai'] is not None:
+        scores = np.array([result['score_ai']])
+    else:
+        scores = bundle['calibrated_model'].predict_proba(windows)[:, 1]
+    weights = np.array([len(window.split()) for window in windows])
+    score = float(np.average(scores, weights=weights))
+    tied = abs(score - .5) <= 1e-12
+    label = None if tied else int(score > .5)
+    warnings = result['analysis_warnings']
+    if result['vocabulary_coverage'] < bundle['policy']['min_vocabulary_coverage']:
+        warnings.append("O vocabulário difere da base de treino; a tendência é exploratória e pode estar errada.")
+    if len(windows) > 1:
+        warnings.append(f"Texto analisado em {len(windows)} trechos. A média das pontuações não comprova a autoria do documento.")
+    if np.any(scores < .5) and np.any(scores > .5):
+        warnings.append("Os trechos apontam tendências diferentes; a média pode ocultar essa variação.")
+    if result['label'] is None:
+        warnings.append("A referência estatística não sustenta uma classificação única para este texto.")
+    result['estimate'] = {
+        'label': label,
+        'prediction': bundle['labels'][label] if label is not None else 'Equilibrado',
+        'score_ai': score,
+        'score_type': 'média ponderada por palavras; não é probabilidade de autoria' if len(windows) > 1
+                      else 'score calibrado na base L2; uso exploratório fora das condições de referência',
+        'method': 'word_weighted_windows' if len(windows) > 1 else 'single_text',
+        'n_windows': len(windows),
+        'n_words_analyzed': int(weights.sum()),
+        'windows': [{'n_words': int(n), 'score_ai': float(p)} for n, p in zip(weights, scores)],
+    }
+    return result
+
+
 def explain_improved(model_path, text, top_n=15):
     """Contribuições exatas para a margem linear antes da calibração."""
     bundle = joblib.load(model_path)
