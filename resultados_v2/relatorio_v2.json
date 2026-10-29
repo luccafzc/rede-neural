@@ -1,0 +1,67 @@
+{
+  "winner_selected_on_training_cv": "hibrido_svm",
+  "selection": "3-fold stratified CV macro F1",
+  "test_status": "Diagnóstico no teste histórico; validação externa independente ainda necessária.",
+  "partitions": {
+    "train": 1385,
+    "probability_calibration": 166,
+    "uncertainty_calibration": 166,
+    "test": 701
+  },
+  "binary_default_0_5_all_test": {
+    "n": 701,
+    "accuracy": 0.9657631954350927,
+    "balanced_accuracy": 0.9745124378109453,
+    "precision_ai": 0.997907949790795,
+    "recall_ai": 0.954,
+    "f1_ai": 0.9754601226993865,
+    "f1_macro": 0.9594281745572404,
+    "false_positive_rate": 0.004975124378109453,
+    "tn": 200,
+    "fp": 1,
+    "fn": 23,
+    "tp": 477,
+    "roc_auc": 0.9993432835820896,
+    "average_precision_ai": 0.9997346446678202
+  },
+  "calibrated_probability_metrics": {
+    "brier": 0.03290060583685824,
+    "log_loss": 0.12696598969286552
+  },
+  "selective": {
+    "n_total": 701,
+    "n_decided": 486,
+    "n_inconclusive": 215,
+    "decision_coverage": 0.6932952924393724,
+    "human_decision_coverage": 0.900497512437811,
+    "ai_decision_coverage": 0.61,
+    "false_ai_among_all_humans": 0.0,
+    "false_human_among_all_ai": 0.01,
+    "conditional_metrics_decided_only": {
+      "n": 486,
+      "accuracy": 0.9897119341563786,
+      "balanced_accuracy": 0.9918032786885246,
+      "precision_ai": 1.0,
+      "recall_ai": 0.9836065573770492,
+      "f1_ai": 0.9917355371900827,
+      "f1_macro": 0.9890557794942239,
+      "false_positive_rate": 0.0,
+      "tn": 181,
+      "fp": 0,
+      "fn": 5,
+      "tp": 300
+    }
+  },
+  "policy": {
+    "min_words": 50,
+    "max_words": 535,
+    "min_vocabulary_coverage": 0.7402907208283551,
+    "alpha": 0.05
+  },
+  "reference_per_class": {
+    "0": 86,
+    "1": 80
+  },
+  "conformal_note": "Compatibilidade condicionada à classe requer dados intercambiáveis com a referência. Sem garantia para português nativo ou textos fora do domínio; abstenção não é acerto.",
+  "transformer_status": "not_trained"
+}

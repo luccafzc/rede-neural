@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "tests_passed": 19,
+  "executed": [
+    "Seis candidatos com CV de 3 folds no treino",
+    "Treinamento, calibração e referência de compatibilidade",
+    "Inferência no ambiente Python instalado pelo usuário",
+    "Comparação pareada com o teste histórico",
+    "Verificação das métricas, partições e explicação linear",
+    "Seis testes de integração da interface com o modelo real, validação de entrada e restrições de acesso local",
+    "Navegador: análise de frase curta inconclusiva, análise de parágrafo, detalhes técnicos, importação TXT e limpeza do resultado após edição"
+  ],
+  "not_executed": [
+    "Avaliação externa com português nativo",
+    "Treinamento dos transformers",
+    "LIME/SHAP dos transformers",
+    "Notebook completo no Colab"
+  ],
+  "notebook": "Estrutura e sintaxe validadas; contém todos os módulos atualizados."
+}

@@ -1,0 +1,17 @@
+{
+  "selected_by": "mean validation macro F1",
+  "winner": "regressao_logistica",
+  "primary_seed": 42,
+  "ci95_bootstrap": {
+    "accuracy": {
+      "low": 0.9486091298145506,
+      "high": 0.9757489300998573
+    },
+    "f1_macro": {
+      "low": 0.9398905449509373,
+      "high": 0.9709061168686905
+    }
+  },
+  "transformers_status": "not_trained",
+  "warning": "Estudo exploratório de português L2; não comprova autoria."
+}

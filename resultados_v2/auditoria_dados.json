@@ -1,0 +1,329 @@
+{
+  "exact": {
+    "dataset_revision": "69e5e82a5c0e2edd0b7765e04cb3a2c902962d8e",
+    "sha256": {
+      "train": "6a1c9d00ddf9239df1b43dac76e52de478b327ba376b971f5eff92b7acb78eff",
+      "val": "6541102035a594284d057afa03c06d7efd9f6e24148e70342fdeabd0b0ecd666",
+      "test": "494e4642bbbad5d886675b2802188fc89bc68217c5f51361560adbb1eef37d97"
+    },
+    "original_counts": {
+      "train": 1781,
+      "val": 361,
+      "test": 708
+    },
+    "overlaps_before": {
+      "train/val": {
+        "essay_id": 76,
+        "text_hash": 76
+      },
+      "train/test": {
+        "essay_id": 86,
+        "text_hash": 86
+      },
+      "val/test": {
+        "essay_id": 16,
+        "text_hash": 16
+      }
+    },
+    "clean_counts": {
+      "test": {
+        "total": 701,
+        "human": 201,
+        "ai": 500
+      },
+      "val": {
+        "total": 332,
+        "human": 171,
+        "ai": 161
+      },
+      "train": {
+        "total": 1416,
+        "human": 579,
+        "ai": 837
+      }
+    },
+    "removed": {
+      "train": 365,
+      "val": 29,
+      "test": 7
+    },
+    "human_topic_missing": 1350
+  },
+  "near": {
+    "cosine_threshold": 0.95,
+    "near_pairs": [
+      {
+        "id_a": "ai_9.52_glm",
+        "id_b": "ai_9.27_qwen",
+        "split_a": "val",
+        "split_b": "train",
+        "similarity": 0.9920178748381262,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_8.54_glm",
+        "id_b": "ai_8.39_qwen",
+        "split_a": "val",
+        "split_b": "train",
+        "similarity": 0.9901087382621723,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.59_glm",
+        "id_b": "ai_9.31_qwen",
+        "split_a": "val",
+        "split_b": "train",
+        "similarity": 0.9655675417008236,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_8.52_glm",
+        "id_b": "ai_8.33_qwen",
+        "split_a": "val",
+        "split_b": "train",
+        "similarity": 0.9917180781546971,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.46_glm",
+        "id_b": "ai_9.40_qwen",
+        "split_a": "val",
+        "split_b": "train",
+        "similarity": 0.9755733259814624,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_8.26_qwen",
+        "id_b": "ai_8.58_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9701861434277393,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.25_qwen",
+        "id_b": "ai_9.51_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9667738066969495,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_8.50_glm",
+        "id_b": "ai_8.30_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9878543593204503,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_8.53_glm",
+        "id_b": "ai_8.29_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9628789212450002,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.42_glm",
+        "id_b": "ai_9.29_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9805073741362575,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.41_glm",
+        "id_b": "ai_9.28_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.969519680753664,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.54_glm",
+        "id_b": "ai_9.23_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9713527076775141,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.36_qwen",
+        "id_b": "ai_9.44_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9722115481271785,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.57_glm",
+        "id_b": "ai_9.32_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9691876969946137,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.58_glm",
+        "id_b": "ai_9.30_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9910357016796265,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.45_glm",
+        "id_b": "ai_9.35_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9729110318915243,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_8.59_glm",
+        "id_b": "ai_8.40_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9872914585502954,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.43_glm",
+        "id_b": "ai_9.33_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9806475803647903,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.34_qwen",
+        "id_b": "ai_9.48_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9826402594831949,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.56_glm",
+        "id_b": "ai_9.24_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.976622640684342,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.21_qwen",
+        "id_b": "ai_9.60_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9862559852922764,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.22_qwen",
+        "id_b": "ai_9.53_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9765081513756474,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_8.31_qwen",
+        "id_b": "ai_8.46_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9649919531308946,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.39_qwen",
+        "id_b": "ai_9.47_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9737287547539886,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_8.24_qwen",
+        "id_b": "ai_8.43_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9890272833474711,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.38_qwen",
+        "id_b": "ai_9.49_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.990951810630103,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.37_qwen",
+        "id_b": "ai_9.55_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9749262814924347,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_9.50_glm",
+        "id_b": "ai_9.26_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9711089402322814,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_8.55_glm",
+        "id_b": "ai_8.37_qwen",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9851668074792937,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_8.36_qwen",
+        "id_b": "ai_8.51_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9868374797500562,
+        "same_label": true
+      },
+      {
+        "id_a": "ai_8.38_qwen",
+        "id_b": "ai_8.49_glm",
+        "split_a": "train",
+        "split_b": "train",
+        "similarity": 0.9610584602815565,
+        "same_label": true
+      }
+    ],
+    "removed_by_split": {
+      "test": 0,
+      "val": 0,
+      "train": 31
+    },
+    "conflicting_rows_removed": 0,
+    "note": "Filtro lexical de auditoria, ajustado sem rótulos; não garante ausência de similaridade semântica."
+  },
+  "effective_counts": {
+    "test": {
+      "total": 701,
+      "human": 201,
+      "ai": 500
+    },
+    "val": {
+      "total": 332,
+      "human": 171,
+      "ai": 161
+    },
+    "train": {
+      "total": 1385,
+      "human": 579,
+      "ai": 806
+    }
+  }
+}

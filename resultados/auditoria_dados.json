@@ -1,0 +1,50 @@
+{
+  "dataset_revision": "69e5e82a5c0e2edd0b7765e04cb3a2c902962d8e",
+  "sha256": {
+    "train": "6a1c9d00ddf9239df1b43dac76e52de478b327ba376b971f5eff92b7acb78eff",
+    "val": "6541102035a594284d057afa03c06d7efd9f6e24148e70342fdeabd0b0ecd666",
+    "test": "494e4642bbbad5d886675b2802188fc89bc68217c5f51361560adbb1eef37d97"
+  },
+  "original_counts": {
+    "train": 1781,
+    "val": 361,
+    "test": 708
+  },
+  "overlaps_before": {
+    "train/val": {
+      "essay_id": 76,
+      "text_hash": 76
+    },
+    "train/test": {
+      "essay_id": 86,
+      "text_hash": 86
+    },
+    "val/test": {
+      "essay_id": 16,
+      "text_hash": 16
+    }
+  },
+  "clean_counts": {
+    "test": {
+      "total": 701,
+      "human": 201,
+      "ai": 500
+    },
+    "val": {
+      "total": 332,
+      "human": 171,
+      "ai": 161
+    },
+    "train": {
+      "total": 1416,
+      "human": 579,
+      "ai": 837
+    }
+  },
+  "removed": {
+    "train": 365,
+    "val": 29,
+    "test": 7
+  },
+  "human_topic_missing": 1350
+}

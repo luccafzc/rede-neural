@@ -1,0 +1,15 @@
+{
+  "same_test_ids": 701,
+  "mcnemar_binary": [
+    {
+      "model_a": "v1",
+      "model_b": "v2_binary",
+      "a_only_correct": 7,
+      "b_only_correct": 9,
+      "p_raw": 0.803619384765625,
+      "p_holm": 0.803619384765625,
+      "significant_0_05": false
+    }
+  ],
+  "note": "Teste reutilizado; comparação diagnóstica, sem alegação de generalização."
+}

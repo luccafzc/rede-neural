@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Humano × IA · Análise de texto</title>
+  <link rel="stylesheet" href="/app.css"><script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <div class="workspace">
+      <section class="editor-panel panel" aria-labelledby="input-title">
+        <div class="panel-heading"><h2 id="input-title">Seu texto</h2>
+          <button id="import-button" type="button">Importar .txt</button>
+          <input id="file-input" type="file" accept=".txt,text/plain" hidden>
+        </div>
+        <p class="hint" id="range-hint">Parágrafos e redações em português.</p>
+        <label for="text-input" class="sr-only">Texto para análise</label>
+        <textarea id="text-input" maxlength="100000" spellcheck="false" aria-describedby="range-hint count-hint" placeholder="Cole aqui o parágrafo ou a redação que deseja analisar…"></textarea>
+        <div class="editor-meta"><span id="file-name"></span><span id="word-counter"><strong id="word-count">0</strong> palavras</span></div>
+        <p class="count-hint" id="count-hint">A contagem acompanha o texto enquanto você escreve.</p>
+        <div class="actions"><button class="button-primary" id="analyze" type="button" disabled><span id="button-label">Analisar texto</span></button><button id="clear" type="button">Limpar</button></div>
+        <p class="error" id="error" role="alert" hidden></p>
+      </section>
+      <section class="result-panel panel" aria-labelledby="result-title" aria-busy="false" id="result-panel">
+        <div class="panel-heading"><h2 id="result-title">Resultado</h2></div>
+        <div id="empty-state" class="empty-state">
+          <p>Insira um texto e clique em Analisar texto.</p>
+        </div>
+        <div id="loading-state" role="status" hidden><p>Analisando…</p></div>
+        <div id="result-content" hidden>
+          <div class="outcome" id="outcome" role="status" aria-live="polite"><span id="result-kicker" class="result-kicker"></span><h3 id="prediction"></h3><p id="explanation"></p></div>
+          <ul id="reasons" class="reasons" hidden></ul>
+          <div class="result-facts"><div><span>Texto analisado</span><strong id="analyzed-count"></strong></div><div><span>Modelo</span><strong id="model-name">Modelo v2</strong></div></div>
+          <p class="result-limit">Esta classificação é experimental e não comprova a autoria do texto.</p>
+          <details id="technical"><summary>Explorar detalhes técnicos</summary><div class="technical-content">
+            <dl><div><dt>Pontuação para IA</dt><dd id="score"></dd></div><div><dt>Cobertura do vocabulário</dt><dd id="coverage"></dd></div><div><dt>Classes compatíveis</dt><dd id="compatible"></dd></div></dl>
+            <p>A pontuação foi calibrada na base de aprendizes de português. Ela não representa certeza sobre a autoria deste texto.</p>
+            <details class="raw-details"><summary>Ver retorno completo</summary><pre id="raw-result"></pre></details>
+          </div></details>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

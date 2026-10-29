@@ -1,0 +1,29 @@
+[
+  {
+    "model_a": "regressao_logistica",
+    "model_b": "svm_linear",
+    "a_only_correct": 2,
+    "b_only_correct": 4,
+    "p_raw": 0.6875,
+    "p_holm": 0.6875,
+    "significant_0_05": false
+  },
+  {
+    "model_a": "regressao_logistica",
+    "model_b": "random_forest",
+    "a_only_correct": 3,
+    "b_only_correct": 19,
+    "p_raw": 0.0008554458618164062,
+    "p_holm": 0.0025663375854492188,
+    "significant_0_05": true
+  },
+  {
+    "model_a": "svm_linear",
+    "model_b": "random_forest",
+    "a_only_correct": 3,
+    "b_only_correct": 17,
+    "p_raw": 0.0025768280029296875,
+    "p_holm": 0.005153656005859375,
+    "significant_0_05": true
+  }
+]
