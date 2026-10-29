@@ -5,3 +5,4 @@ scikit-learn==1.9.1
 matplotlib==3.11.2
 joblib==1.6.0
 nbformat==5.11.1
+Flask>=3.1,<4
